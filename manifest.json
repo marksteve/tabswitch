@@ -1,0 +1,36 @@
+{
+    "name": "Tabswitch",
+    "version": "0.0.1",
+    "manifest_version": 2,
+
+    "description": "A tab switcher",
+    // "icons": { ... },
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["lib/jquery.min.js", "lib/tabswitch.js"],
+            "css": ["tabswitch.css"]
+        }
+    ],
+
+    "background": {
+        "scripts": ["lib/background.js"],
+        "persistent": false
+    },
+
+    "browser_action": {
+        "default_title": "Tabswitch"
+    },
+
+    "homepage_url": "https://github.com/marksteve/tabswitch",
+    "offline_enabled": true,
+    "omnibox": {
+        "keyword": "tabswitch"
+    },
+    "permissions": [
+        "tabs"
+    ],
+    "web_accessible_resources": [
+    ]
+}
