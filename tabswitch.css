@@ -44,10 +44,11 @@
     border-radius: 5px;
     background-color: rgba(224, 224, 224, 0.8);
     border: 1px solid rgb(192, 192, 192);
-    color: rgba(0, 0, 0, 0.6);
+    color: black;
     white-space: nowrap;
     font: 16px/1 sans-serif;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.8);
 }
 
 #tabswitch li.active {
