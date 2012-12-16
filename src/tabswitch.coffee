@@ -2,7 +2,7 @@ $tabswitch = $("""<div id="tabswitch"><input type="text"><ul></ul></div>""")
 $("body").append($tabswitch)
 
 $tsInput = $("input[type=text]", $tabswitch)
-$tsInput.on("keypress", (e) ->
+$tsInput.on("keyup", (e) ->
     if e.keyCode == 13
         selectedTabId = $("li:first-child", $tsResults).attr("id")
         if selectedTabId
@@ -13,10 +13,13 @@ $tsInput.on("keypress", (e) ->
             $tabswitch.hide()
     else
         query = $tsInput.val()
-        chrome.extension.sendMessage(
-            action: "queryTabs"
-            query: query
-            )
+        if query.length > 0
+            chrome.extension.sendMessage(
+                action: "queryTabs"
+                query: query
+                )
+        else
+            $tsResults.empty()
     return)
 
 $tsResults = $("ul", $tabswitch)

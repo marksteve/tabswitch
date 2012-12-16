@@ -6,10 +6,15 @@ chrome.extension.onMessage.addListener((msg, sender, sendResponse) ->
     console.log(msg)
     switch msg.action
         when "queryTabs"
-            chrome.tabs.query(title: "*#{msg.query}*", (tabs) ->
+            chrome.tabs.query({}, (tabs) ->
+                results = []
+                for tab in tabs
+                    pat = new RegExp(msg.query, 'i')
+                    if pat.test(tab.url) or pat.test(tab.title)
+                        results.push(tab)
                 queryInfo =
                     action: "queryResults"
-                    results: tabs
+                    results: results
                 chrome.tabs.sendMessage(sender.tab.id, queryInfo)
                 return)
         when "activateTab"
