@@ -3,17 +3,28 @@ $("body").append($tabswitch)
 
 $tsInput = $("input[type=text]", $tabswitch)
 $tsInput.on("keyup", (e) ->
+    $active = $("li.active", $tsResults)
     switch e.keyCode
-        when 13
-            selectedTabId = $("li:first-child", $tsResults).attr("id")
+        when 13  # Enter
+            selectedTabId = $("li.active", $tsResults).attr("id")
             if selectedTabId
                 chrome.extension.sendMessage(
                     action: "activateTab"
                     tabId: selectedTabId
                     )
                 $tabswitch.hide()
-        when 27
+        when 27  # Escape
             $tabswitch.hide()
+        when 38  # Up
+            $prev = $active.prev("li")
+            if $prev.size()
+                $active.removeClass("active")
+                $prev.addClass("active")
+        when 40  # Down
+            $next = $active.next("li")
+            if $next.size()
+                $active.removeClass("active")
+                $next.addClass("active")
         else
             query = $tsInput.val()
             if query.length > 0
@@ -29,8 +40,8 @@ $tsResults = $("ul", $tabswitch)
 
 chrome.extension.onMessage.addListener((msg) ->
     switch msg.action
-        when "show"
-            $tabswitch.show()
+        when "toggle"
+            $tabswitch.toggle()
             $tsInput.select()
 
         when "queryResults"
@@ -49,5 +60,6 @@ chrome.extension.onMessage.addListener((msg) ->
                 $tsResults.append($result)
                 if ++results >= maxResults
                     break
+            $("li:first-child", $tsResults).addClass("active")
 
     return)

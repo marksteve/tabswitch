@@ -1,9 +1,8 @@
 chrome.browserAction.onClicked.addListener((tab) ->
-    chrome.tabs.sendMessage(tab.id, action: "show")
+    chrome.tabs.sendMessage(tab.id, action: "toggle")
     return)
 
 chrome.extension.onMessage.addListener((msg, sender, sendResponse) ->
-    console.log(msg)
     switch msg.action
         when "queryTabs"
             chrome.tabs.query({}, (tabs) ->

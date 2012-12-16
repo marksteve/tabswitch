@@ -43,9 +43,16 @@
     padding: 10px;
     border-radius: 5px;
     background-color: rgba(224, 224, 224, 0.8);
+    border: 1px solid rgb(192, 192, 192);
     color: rgba(0, 0, 0, 0.6);
     white-space: nowrap;
     font: 16px/1 sans-serif;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+#tabswitch li.active {
+    background-color: rgba(224, 255, 255, 0.8);
+    border-color: rgb(192, 224, 224);
 }
 
 #tabswitch img {
